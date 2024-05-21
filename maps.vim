@@ -3,9 +3,7 @@ let mapleader=" "
 let g:prettier#autoformat = 1
 
 command! -nargs=0 ReloadInitVim :source $MYVIMRC | echom "Archivo init.vim recargado"
-nnoremap <Leader>rp  :ReloadInitVim<CR>
-" Mapeo de teclas para ejecutar Prettier
-" nnoremap <silent> <Leader>ga :PrettierAsync<CR>
+
 " testing
 nnoremap <Leader>if <Plug>(JsFileImport)
 
@@ -20,12 +18,20 @@ nnoremap <Leader>ip <Plug>(PromptJsFileImport)
 
 function! PrintVariableName()
   let l:var_name = expand('<cword>')
-  execute "normal! A\<CR>console.log(\"log:\", " . l:var_name . ")"
+  if &filetype ==# 'python'
+    execute "normal! A\<CR>print(\"log:\", " . l:var_name . ")"
+  elseif &filetype ==# 'kotlin'
+    execute "normal! A\<CR>println(\"log:\", " . l:var_name . ")"
+  elseif &filetype ==# 'javascript' || &filetype ==# 'typescript'
+    execute "normal! A\<CR>console.log(\"log:\", " . l:var_name . ")"
+  else
+    execute "normal! A\<CR>log(\"log:\", " . l:var_name . ")"
+  endif
 endfunction
 
 nnoremap <Leader>l :call PrintVariableName()<CR>
 
-
+ 
 nnoremap <Leader>is <Plug>(SortJsFileImport)
 "nnoremap <Leader>t :TestNearest<CR>
 "nnoremap <Leader>T :TestFile<CR>
@@ -53,14 +59,89 @@ map <Leader>p :Files<CR>
 map <Leader>ag :Ag<CR>
 
 " tmux navigator
-nnoremap <silent> <Leader><C-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <Leader><C-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <Leader><C-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <Leader><C-l> :TmuxNavigateRight<cr>
+" nnoremap <silent> <Leader><C-h> :TmuxNavigateLeft<cr>
+" nnoremap <silent> <Leader>pC-j> :TmuxNavigateDown<cr>
+" nnoremap <silent> <Leadepp<C-l> :TmuxNavigateRight<cr>
+" nnoremap <silent> <Leader><C-k> :TmuxNavigateUp<cr>
+" Usar Alt+h para moverse a la izquierda en tmux
+nnoremap <leader>fh :TmuxNavigateLeft<cr>
+" Usar Alt+l para moverse a la derecha en tmux
+nnoremap <leader>fl :TmuxNavigateRight<cr>
+" Usar Alt+j para moverse abajo en tmux
+nnoremap <leader>fj :TmuxNavigateDown<cr>
+
+" Usar Alt+k para moverse arriba en tmux
+nnoremap <leader>fk :TmuxNavigateUp<cr>
+
+" Método para formatear el documento y eliminar importaciones no utilizadas
+" function! FormatAndCleanImports()
+  "" Guarda la posición del cursor
+  " let save_cursor = getpos('.')
+" 
+  "" Formatea el documento usando el comando correspondiente según el tipo de archivo
+  " if &filetype ==# 'python'
+    " silent execute '!autopep8 --in-place --aggressive %'
+  " elseif &filetype ==# 'javascript' || &filetype ==# 'typescript' || &filetype ==# 'typescriptreact' || &filetype ==# 'javascriptreact' || &filetype ==# 'astro'
+    " silent execute '!prettier --write %'
+  " elseif &filetype ==# 'java'
+    " silent execute '!java -jar ~/path/to/google-java-format-1.11.0-all-deps.jar --replace %'
+  " elseif &filetype ==# 'kotlin'
+    " silent execute '!ktlint -F %'
+  " else
+    " echo "No se ha configurado el formato para este tipo de archivo."
+    " return
+  " endif
+" 
+  "" Elimina importaciones no utilizadas (puede variar según el linter o herramienta de formato)
+  " if &filetype ==# 'python'
+    " silent execute '!isort %'
+  " elseif &filetype ==# 'javascript' || &filetype ==# 'typescript' || &filetype ==# 'typescriptreact' || &filetype ==# 'javascriptreact' || &filetype ==# 'astro'
+    " silent execute '!prettier --write %'
+  " elseif &filetype ==# 'java'
+    " silent execute '!java -jar ~/path/to/google-java-format-1.11.0-all-deps.jar --replace %'
+  " elseif &filetype ==# 'kotlin'
+    " silent execute '!ktlint -F %'
+  " endif
+" 
+  "" Restaura la posición del cursor
+  " call setpos('.', save_cursor)
+" endfunction
+
+function! FormatAndCleanImports()
+  echom "Formateando..."
+ " Guarda la posición del cursor
+  let save_cursor = getpos('.')
+
+  " Verifica si Prettier está instalado
+  if !executable('biome')
+    echo "Prettier no está instalado. Por favor, instálalo para formatear el código."
+    return
+  endif
+
+  " Formatea el documento usando Prettier
+  silent !biome format % --write
+" 
+  " Verifica si ESLint está instalado
+  " if executable('eslint')
+   " Ejecuta ESLint con la opción --fix para corregir automáticamente el código
+    " silent !eslint --fix --max-warnings=0 %
+  " else
+    " echo "ESLint no está instalado. Por favor, instálalo para eliminar importaciones no utilizadas."
+  " endif
+
+  " Restaura la posición del cursor
+  call setpos('.', save_cursor)
+endfunction
 
 
-autocmd FileType * nnoremap <buffer> ga :silent !biome format % --write<CR>
+""" Mapeo para llamar al método FormatAndCleanImports cuando se presiona <Space> ga
+autocmd FileType * nnoremap <buffer> ga :call FormatAndCleanImports()<CR>
+
 " Remap keys for gotos
+"
+"
+"
+"
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -73,8 +154,11 @@ nnoremap <leader>P :let @*=expand("%")<CR>
 
 " tabs navigation
 "map <Leader>h :tabprevious<cr>
-"map <Leader>l :tabnext<cr>
-
+"pap <Leader>l :tabnext<cr>
+" Cambiar al siguiente buffer con Tab en modo normal
+nnoremap <Tab> :bnext<CR>
+" Cambiar al buffer anterior con Shift+Tab en modo normal
+nnoremap <S-Tab> :bprevious<CR>
 " buffers
 map <Leader>ob :Buffers<cr>
 
@@ -320,3 +404,4 @@ endfunction
 " Mapea <Space>/ a la función ToggleComment
  nnoremap <silent> <Space>/ :call ToggleComment()<CR>
  xnoremap <silent> <Space>/ :call ToggleComment()<CR>
+
