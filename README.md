@@ -72,8 +72,7 @@ git clone https://github.com/nvim-lua/kickstart.nvim.git "${XDG_CONFIG_HOME:-$HO
 
 <summary> Instalar en Linux </summary>
 ```sh
-sudo apt-get update                                                                                                            ─╯
-sudo apt-get install libc6-dev
+sudo apt-get update  \\ sudo apt-get install libc6-dev
 ```
 </details>
 
