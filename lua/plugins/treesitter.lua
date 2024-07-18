@@ -1,15 +1,30 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
--- Customize Treesitter
-
----@type LazySpec
 return {
   "nvim-treesitter/nvim-treesitter",
   opts = {
     ensure_installed = {
+      -- TODO: como adicionar flutter dart aqui
       "lua",
       "vim",
-      -- add more arguments for adding more treesitter parsers
+      "vimdoc",
+      "json",
+      "yaml",
+      "markdown",
+      "markdown_inline",
+      "bash",
+      "python",
+      "rust",
+      "typescript",
+      "javascript",
+      "tsx",
+      "html",
+      "css",
+      "scss",
+      "kotin",
+      "gitignore",
+      "git_rebase",
+      "gitcommit",
+      "gitconfig",
+      "gitattributes",
     },
   },
 }

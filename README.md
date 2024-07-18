@@ -32,3 +32,15 @@ git clone https://github.com/<your_user>/<your_repository> ~/.config/nvim
 ```shell
 nvim
 ```
+
+#### Comando para minimizar codigo
+
+```shell
+zc : Plegar el bloque de código bajo el cursor.
+zo : Desplegar el bloque de código bajo el cursor.
+za : Alternar (plegar/desplegar) el bloque de código bajo el cursor.
+zM : Plegar todos los bloques de código en el archivo.
+zR : Desplegar todos los bloques de código en el archivo.
+zm : Incrementar el nivel de plegado (plegar más niveles).
+zr : Reducir el nivel de plegado (plegar menos niveles).
+```

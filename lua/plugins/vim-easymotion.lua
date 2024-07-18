@@ -1,4 +1,3 @@
--- plugins/init.lua o similar
 return {
   "easymotion/vim-easymotion",
   config = function()
