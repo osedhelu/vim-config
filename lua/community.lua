@@ -2,5 +2,5 @@ return {
   "AstroNvim/astrocommunity",
   { import = "astrocommunity.pack.lua" },
   { import = "astrocommunity.recipes.telescope-nvchad-theme" },
-  { import = "astrocommunity.pack.dart" },
+  { import = "astrocommunity.pack.typescript" },
 }

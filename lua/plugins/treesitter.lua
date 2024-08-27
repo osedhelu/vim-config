@@ -2,7 +2,6 @@ return {
   "nvim-treesitter/nvim-treesitter",
   opts = {
     ensure_installed = {
-      -- TODO: como adicionar flutter dart aqui
       "lua",
       "vim",
       "vimdoc",
@@ -19,12 +18,9 @@ return {
       "html",
       "css",
       "scss",
-      "kotin",
-      "gitignore",
-      "git_rebase",
-      "gitcommit",
-      "gitconfig",
-      "gitattributes",
+    },
+    highlight = {
+      enable = true,
     },
   },
 }
