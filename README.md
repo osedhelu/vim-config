@@ -367,6 +367,28 @@ chmod +x scripts/nvim-doctor.sh
 
 ---
 
+### ESLint en JS/TS (error `-32603` o “textDocument/diagnostic failed”)
+
+El pack **astrocommunity.pack.typescript** instala **ESLint** como LSP. Si en un repo el **ESLint del proyecto** está roto (plugins mal instalados, `eslint.config` inválido, `node_modules` incompletos), el servidor puede lanzar **error interno JSON-RPC (-32603)** y notificaciones en bucle. **Ir a definición** lo sigue haciendo **vtsls**; el fallo suele ser solo del cliente `eslint`.
+
+**En el proyecto (recomendado):**
+
+```bash
+cd /ruta/al/repo   # p. ej. disglobal-page
+npm ci             # o npm install / pnpm install
+npx eslint .       # debe terminar sin excepción; si aquí falla, Neovim también fallará
+```
+
+**En Neovim (silenciar ESLint LSP hasta arreglar el repo):** en `init.lua`, antes de `require "lazy_setup"`, descomenta:
+
+```lua
+vim.g.disable_eslint_lsp = true
+```
+
+También se ajustó `workingDirectory.mode = "auto"` para monorepos (ver `lua/plugins/astrolsp.lua`).
+
+---
+
 ### Primera vez después de clonar
 
 1. Abre `nvim` y deja que **Lazy** instale plugins (puede tardar y requiere red).
@@ -384,6 +406,12 @@ mv ~/.config/nvim ~/.config/nvim.bak
 mv ~/.local/share/nvim ~/.local/share/nvim.bak
 mv ~/.local/state/nvim ~/.local/state/nvim.bak
 mv ~/.cache/nvim ~/.cache/nvim.bak
+```
+
+```shell
+rm -rf ~/.local/share/nvim &&
+rm -rf ~/.local/state/nvim && 
+rm -rf ~/.cache/nvim 
 ```
 
 #### Plantilla en GitHub o clonar

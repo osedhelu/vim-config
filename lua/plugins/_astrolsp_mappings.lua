@@ -2,6 +2,14 @@ return {
   "AstroNvim/astrolsp",
   ---@param opts AstroLSPOpts
   opts = function(_, opts)
+    --- Neovim 0.11+ depreca `client.supports_method(m)`; usar `client:supports_method(m)`.
+    local function client_supports(client, method)
+      if vim.fn.has "nvim-0.11" == 1 then
+        return client:supports_method(method)
+      end
+      return client.supports_method(method)
+    end
+
     local maps = require("astrocore").empty_map_table()
     maps.n["<Leader>l"] = { desc = require("astroui").get_icon("ActiveLSP", 1, true) .. "Language Tools" }
     maps.v["<Leader>l"] = { desc = require("astroui").get_icon("ActiveLSP", 1, true) .. "Language Tools" }
@@ -41,7 +49,7 @@ return {
       method = "textDocument/" .. (method or "formatting")
       return function(client)
         local disabled = opts.formatting.disabled
-        return client.supports_method(method) and disabled ~= true and not vim.tbl_contains(disabled, client.name)
+        return client_supports(client, method) and disabled ~= true and not vim.tbl_contains(disabled, client.name)
       end
     end
     local formatting_enabled = formatting_checker()
@@ -112,7 +120,7 @@ return {
       function() require("astrolsp.toggles").buffer_semantic_tokens() end,
       desc = "Toggle LSP semantic highlight (buffer)",
       cond = function(client)
-        return client.supports_method "textDocument/semanticTokens/full" and vim.lsp.semantic_tokens
+        return client_supports(client, "textDocument/semanticTokens/full") and vim.lsp.semantic_tokens
       end,
     }
     opts.mappings = require("astrocore").extend_tbl(opts.mappings, maps)
