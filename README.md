@@ -58,16 +58,23 @@ Los bloques siguientes reflejan lo que está en `lua/plugins/` (AstroCore person
 | `<Leader>/` | Visual | Alternar comentario en selección (`gc`) |
 | `j` / `k` | Normal / Visual | Bajar/subir respetando líneas visuales (`gj`/`gk` si no hay contador) |
 
+### Buscar archivos del proyecto
+
+| Atajo | Modo | Acción |
+|-------|------|--------|
+| `<Leader>p` | Normal | **Telescope**: buscar archivos en la raíz detectada del proyecto (git, etc.) |
+
 ### Plugins (Lazy)
 
 | Atajo | Modo | Acción |
 |-------|------|--------|
-| `<Leader>pi` | Normal | Instalar plugins |
-| `<Leader>ps` | Normal | UI estado de Lazy |
-| `<Leader>pS` | Normal | Sincronizar plugins |
-| `<Leader>pu` | Normal | Comprobar actualizaciones |
-| `<Leader>pU` | Normal | Actualizar plugins |
-| `<Leader>pa` | Normal | Actualizar Lazy y Mason |
+| `<Leader>L` | Normal | Prefijo del menú Plugins (Espacio, **Shift+L**) |
+| `<Leader>Li` | Normal | Instalar plugins |
+| `<Leader>Ls` | Normal | UI estado de Lazy |
+| `<Leader>LS` | Normal | Sincronizar plugins |
+| `<Leader>Lu` | Normal | Comprobar actualizaciones |
+| `<Leader>LU` | Normal | Actualizar plugins |
+| `<Leader>La` | Normal | Actualizar Lazy y Mason |
 
 ### Diagnósticos LSP
 

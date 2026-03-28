@@ -7,7 +7,8 @@ return {
     -- Inicializa las secciones de mapeo internamente usando títulos
     opts._map_sections = {
       f = { desc = get_icon("Search", 1, true) .. "Buscar" },
-      p = { desc = get_icon("Package", 1, true) .. "Paquetes" },
+      -- `p` ya no es grupo: `<Leader>p` abre Telescope archivos del proyecto. Lazy va en `<Leader>L`.
+      L = { desc = get_icon("Package", 1, true) .. "Plugins (Lazy)" },
       l = { desc = get_icon("ActiveLSP", 1, true) .. "Herramientas de Lenguaje" },
       u = { desc = get_icon("Window", 1, true) .. "UI/UX" },
       b = { desc = get_icon("Tab", 1, true) .. "Buffers" },
@@ -65,14 +66,32 @@ return {
       -- maps.i["<C-S>"] = { function() vim.lsp.buf.signature_help() end, desc = "vim.lsp.buf.signature_help()" }
     end
 
-    -- Gestor de Plugins
-    maps.n["<Leader>p"] = vim.tbl_get(sections, "p")
-    maps.n["<Leader>pi"] = { function() require("lazy").install() end, desc = "Instalar Plugins" }
-    maps.n["<Leader>ps"] = { function() require("lazy").home() end, desc = "Estado de Plugins" }
-    maps.n["<Leader>pS"] = { function() require("lazy").sync() end, desc = "Sincronización de Plugins" }
-    maps.n["<Leader>pu"] = { function() require("lazy").check() end, desc = "Verificar Actualizaciones de Plugins" }
-    maps.n["<Leader>pU"] = { function() require("lazy").update() end, desc = "Actualizar Plugins" }
-    maps.n["<Leader>pa"] = { function() require("astrocore").update_packages() end, desc = "Actualizar Lazy y Mason" }
+    -- Buscar archivos en la raíz del proyecto (git/package.json, etc. vía astrocore.rooter)
+    maps.n["<Leader>p"] = {
+      function()
+        if not require("astrocore").is_available "telescope.nvim" then
+          require("astrocore").notify("Instala o habilita telescope.nvim", vim.log.levels.WARN)
+          return
+        end
+        local roots = require("astrocore.rooter").detect(0, false)
+        local cwd = (roots[1] and roots[1].paths and roots[1].paths[1]) or vim.fn.getcwd()
+        require("telescope.builtin").find_files {
+          cwd = cwd,
+          hidden = true,
+          prompt_title = "Archivos del proyecto",
+        }
+      end,
+      desc = "Buscar archivos en el proyecto",
+    }
+
+    -- Gestor de Plugins (antes todo bajo `<Leader>p`; ahora `L` = Lazy para no chocar con `p`)
+    maps.n["<Leader>L"] = vim.tbl_get(sections, "L")
+    maps.n["<Leader>Li"] = { function() require("lazy").install() end, desc = "Instalar Plugins" }
+    maps.n["<Leader>Ls"] = { function() require("lazy").home() end, desc = "Estado de Plugins" }
+    maps.n["<Leader>LS"] = { function() require("lazy").sync() end, desc = "Sincronización de Plugins" }
+    maps.n["<Leader>Lu"] = { function() require("lazy").check() end, desc = "Verificar Actualizaciones de Plugins" }
+    maps.n["<Leader>LU"] = { function() require("lazy").update() end, desc = "Actualizar Plugins" }
+    maps.n["<Leader>La"] = { function() require("astrocore").update_packages() end, desc = "Actualizar Lazy y Mason" }
 
     -- Manejo de Buffers
     maps.n["<Leader>q"] = { function() require("astrocore.buffer").close() end, desc = "Cerrar buffer" }
