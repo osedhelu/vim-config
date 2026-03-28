@@ -189,17 +189,16 @@ return {
     maps.n["<Leader>ut"] = { function() require("astrocore.toggles").tabline() end, desc = "Alternar tabline" }
     maps.n["<Leader>uu"] = { function() require("astrocore.toggles").url_match() end, desc = "Alternar resaltado de URL" }
     maps.n["<Leader>uw"] = { function() require("astrocore.toggles").wrap() end, desc = "Alternar ajuste de línea" }
-    -- Añade esto dentro de la tabla `maps.n` en tu configuración existente
-maps.n["ga"] = {
-  function()
-    vim.lsp.buf.format { async = true }
-  end,
-  desc = "Formatear código",
-}
+    -- `ga` para formatear está en `_astrolsp_mappings.lua` (usa astrolsp.format_opts + clientes con formatting)
     maps.n["<Leader>uy"] =
 
       { function() require("astrocore.toggles").buffer_syntax() end, desc = "Alternar resaltado de sintaxis" }
 
-    opts.mappings = maps
+    -- No sustituir opts.mappings entero: AstroNvim (p. ej. toggleterm) ya añadió <Leader>t, tf, th, tv…
+    local base = opts.mappings or astro.empty_map_table()
+    for mode, mode_maps in pairs(maps) do
+      base[mode] = astro.extend_tbl(base[mode] or {}, mode_maps)
+    end
+    opts.mappings = base
   end,
 }

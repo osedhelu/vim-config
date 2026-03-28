@@ -12,11 +12,8 @@ return {
       highlighturl = true, -- highlight URLs at start
       notifications = true, -- enable notifications at start
     },
-    -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
-    diagnostics = {
-      virtual_text = true,
-      underline = true,
-    },
+    -- Diagnósticos: sin rellenar todo el archivo (Pyright); solo línea del cursor en NVIM 0.11+
+    diagnostics = require("config.diagnostic_ui").for_astrocore(),
     -- vim options can be configured here
     options = {
       opt = { -- vim.opt.<key>
@@ -25,6 +22,8 @@ return {
         spell = false, -- sets vim.opt.spell
         signcolumn = "yes", -- sets vim.opt.signcolumn to yes
         wrap = false, -- sets vim.opt.wrap
+        -- Evita "Press ENTER or type command to continue" con mensajes largos (LSP, plugins)
+        cmdheight = 2,
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)

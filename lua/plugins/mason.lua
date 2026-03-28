@@ -7,10 +7,8 @@ return {
       "jsonls",
       "vtsls",
       "pyright",
-      "tsserver",
-      -- "",
-      -- "tsserver",
-      -- add more arguments for adding more language servers
+      -- No uses "tsserver" aquí: astrocommunity.pack.typescript ya usa solo vtsls.
+      -- Tener tsserver + vtsls duplica el LSP y rompe signature help / posiciones.
     },
   },
 }

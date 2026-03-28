@@ -12,14 +12,45 @@ return {
     vim.g.EasyMotion_smartcase = 1
     vim.g.EasyMotion_use_smartsign_us = 1
 
-    -- Configura EasyMotion para que no muestre mensajes en la línea de comandos
-    vim.cmd [[
-        augroup EasyMotion
-          autocmd!
-          autocmd User EasyMotionPromptEnd silent! echo ""
-          autocmd User EasyMotionPromptEnd silent! redraw!
-        augroup END
-      ]]
+    -- Mientras eliges destino: sin diagnósticos en pantalla (menos ruido) y menos "Press ENTER"
+    local motion_au = vim.api.nvim_create_augroup("EasyMotionDiagQuiet", { clear = true })
+    local saved_showcmd
+    vim.api.nvim_create_autocmd("User", {
+      group = motion_au,
+      pattern = "EasyMotionPromptBegin",
+      callback = function()
+        saved_showcmd = vim.opt.showcmd:get()
+        vim.opt.showcmd = false
+        local buf = vim.api.nvim_get_current_buf()
+        if vim.diagnostic.enable then
+          pcall(vim.diagnostic.enable, false, { bufnr = buf })
+        else
+          vim.diagnostic.config {
+            virtual_text = false,
+            virtual_lines = false,
+            signs = false,
+            underline = false,
+          }
+        end
+      end,
+    })
+    vim.api.nvim_create_autocmd("User", {
+      group = motion_au,
+      pattern = "EasyMotionPromptEnd",
+      callback = function()
+        if saved_showcmd ~= nil then
+          vim.opt.showcmd = saved_showcmd
+          saved_showcmd = nil
+        end
+        local buf = vim.api.nvim_get_current_buf()
+        if vim.diagnostic.enable then
+          pcall(vim.diagnostic.enable, true, { bufnr = buf })
+        else
+          require("config.diagnostic_ui").apply_vim_diagnostic()
+        end
+        vim.cmd [[silent! echo "" | redraw!]]
+      end,
+    })
 
     -- Opcional: Desactivar más mensajes directamente
     vim.g.EasyMotion_verbose = 0

@@ -198,6 +198,183 @@ En el buscador difuso (**fuzzy**) del árbol: `<C-J>` / `<C-K>` mover el cursor.
 
 ---
 
+## Requisitos del sistema (Linux Ubuntu / macOS)
+
+Esta configuración es **AstroNvim v4**. Funciona en **Ubuntu/Debian** y en **macOS** si instalas las mismas herramientas base. Los LSP y formateadores principales se instalan **desde Neovim** con **Mason** (`:Mason`), pero hace falta software en el sistema para compilar parsers de Tree-sitter, construir `telescope-fzf-native`, usar Git con Lazy, etc.
+
+### Versiones recomendadas
+
+| Componente | Notas |
+|------------|--------|
+| **Neovim** | AstroNvim 4 ya no soporta Neovim 0.8. Usa **0.9.4 o superior**; se recomienda la **última estable 0.10+**. |
+| **Git** | Obligatorio: Lazy.nvim clona plugins al arrancar. |
+| **Compilador C + make** | Obligatorio para **nvim-treesitter** (parsers) y **telescope-fzf-native**. |
+| **curl** | Descargas (Mason, parsers, etc.). |
+
+### Ubuntu / Debian — paquetes con `apt`
+
+Actualiza índices e instala herramientas de compilación, Git y utilidades:
+
+```bash
+sudo apt update
+sudo apt install -y \
+  git \
+  curl \
+  wget \
+  ca-certificates \
+  build-essential \
+  pkg-config \
+  unzip \
+  ripgrep \
+  fd-find \
+  python3 \
+  python3-venv \
+  python3-pip
+```
+
+En Ubuntu el paquete `fd-find` instala el ejecutable como **`fdfind`**. Si alguna herramienta espera el nombre `fd`, crea un enlace (ajusta la ruta si hace falta):
+
+```bash
+sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
+```
+
+**Neovim estable (PPA oficial):**
+
+```bash
+sudo add-apt-repository ppa:neovim-ppa/stable
+sudo apt update
+sudo apt install -y neovim
+```
+
+**Node.js (recomendado para TypeScript/JavaScript y herramientas npm del ecosistema):** opción con **NodeSource** (elige la versión LTS que indique la web) o instala `nodejs` y `npm` desde el repositorio si te basta para tu uso:
+
+```bash
+# Ejemplo genérico desde repositorios Ubuntu (versiones pueden ser antiguas):
+sudo apt install -y nodejs npm
+```
+
+Para una **LTS actual**, sigue las instrucciones de [NodeSource](https://github.com/nodesource/distributions) o usa **nvm**: [https://github.com/nvm-sh/nvm](https://github.com/nvm-sh/nvm).
+
+**Rust (opcional):** solo necesario si quieres el toolchain `rustc`/`cargo` en el sistema (por ejemplo proyectos Rust fuera de Mason). No es obligatorio para que Neovim arranque.
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+**Flutter / Dart (opcional):** esta repo incluye **flutter-tools.nvim**. Si trabajas con Flutter, instala el SDK y asegúrate de que `flutter` y `dart` estén en el `PATH` ([documentación oficial](https://docs.flutter.dev/get-started/install/linux)).
+
+**Fuente con iconos (recomendado):** AstroNvim usa iconos; instala una [Nerd Font](https://www.nerdfonts.com/) y configúrala en la terminal (por ejemplo `sudo apt install fonts-hack-ttf` o descarga una Nerd Font manualmente).
+
+---
+
+### macOS — con Homebrew
+
+Instala [Homebrew](https://brew.sh/) si aún no lo tienes:
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Herramientas base (Git, compilación, búsqueda):
+
+```bash
+brew install git curl wget pkg-config unzip ripgrep fd python@3.12
+```
+
+Neovim y Node:
+
+```bash
+brew install neovim node
+```
+
+Xcode Command Line Tools (compilador para Tree-sitter y fzf-native; acepta la licencia si macOS lo pide):
+
+```bash
+xcode-select --install
+```
+
+**Rust (opcional):** igual que en Linux, vía rustup si lo necesitas para desarrollo Rust:
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+**Flutter (opcional):** para Dart/Flutter con esta configuración:
+
+```bash
+brew install --cask flutter
+flutter doctor
+```
+
+**Nerd Font (recomendado):** por ejemplo:
+
+```bash
+brew tap homebrew/cask-fonts
+brew install --cask font-hack-nerd-font
+```
+
+Configura la terminal para usar esa fuente.
+
+---
+
+### Comprobar instalación (Linux y macOS)
+
+Ejecuta y revisa que no falte nada en el PATH:
+
+```bash
+command -v nvim git curl make gcc python3
+nvim --version
+git --version
+curl --version
+make --version
+gcc --version   # o clang --version en macOS
+python3 --version
+```
+
+Si usas TypeScript/JavaScript en proyectos reales:
+
+```bash
+node --version
+npm --version
+```
+
+Si instalaste Rust:
+
+```bash
+rustc --version
+cargo --version
+```
+
+Si usas Flutter:
+
+```bash
+flutter --version
+dart --version
+```
+
+**Diagnóstico dentro de Neovim:**
+
+```bash
+nvim --headless "+checkhealth" +qa
+```
+
+En el repo hay un script auxiliar (no sustituye instalar dependencias del sistema):
+
+```bash
+chmod +x scripts/nvim-doctor.sh
+./scripts/nvim-doctor.sh check
+```
+
+---
+
+### Primera vez después de clonar
+
+1. Abre `nvim` y deja que **Lazy** instale plugins (puede tardar y requiere red).
+2. Ejecuta **`:Mason`** e instala/actualiza los servidores que uses (`lua_ls`, `jsonls`, `vtsls`, `pyright`, etc.; TypeScript/JS va con **vtsls**, no hace falta `tsserver` por separado).
+3. Si Tree-sitter falla al compilar, instala/actualiza `build-essential` (Linux) o Xcode CLT (macOS) y en Neovim: **`:TSUpdateSync all`** (o `./scripts/nvim-doctor.sh repair`).
+
+---
+
 ## Instalación
 
 #### Copia de seguridad de tu configuración actual
