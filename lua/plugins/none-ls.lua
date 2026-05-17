@@ -1,5 +1,7 @@
 return {
   "nvimtools/none-ls.nvim",
+  -- Neovim 0.12+: _request_name_to_capability fue eliminado; requiere e057efc+
+  commit = "e057efcb97c3d06a64739a9cc2acc18c0acdb894",
   opts = function(_, opts)
     -- opts variable is the default configuration table for the setup function call
     local null_ls = require "null-ls"
