@@ -43,7 +43,8 @@ return {
     maps.n["\\"] = { "<Cmd>split<CR>", desc = "División Horizontal" }
     -- TODO: eliminar método obsoleto después de dejar de soportar neovim v0.9
     if not vim.ui.open then
-      local gx_desc = "Abre la ruta de archivo o URI bajo el cursor con el manejador del sistema (explorador de archivos, navegador web, ...)"
+      local gx_desc =
+        "Abre la ruta de archivo o URI bajo el cursor con el manejador del sistema (explorador de archivos, navegador web, ...)"
       maps.n["gx"] = { function() astro.system_open(vim.fn.expand "<cfile>") end, desc = gx_desc }
       maps.x["gx"] = {
         function()
@@ -114,8 +115,10 @@ return {
     }
 
     maps.n["<Leader>b"] = vim.tbl_get(sections, "b")
-    maps.n["<Leader>bc"] =
-      { function() require("astrocore.buffer").close_all(true) end, desc = "Cerrar todos los buffers excepto el actual" }
+    maps.n["<Leader>bc"] = {
+      function() require("astrocore.buffer").close_all(true) end,
+      desc = "Cerrar todos los buffers excepto el actual",
+    }
     maps.n["<Leader>bC"] = { function() require("astrocore.buffer").close_all() end, desc = "Cerrar todos los buffers" }
     maps.n["<Leader>bl"] =
       { function() require("astrocore.buffer").close_left() end, desc = "Cerrar todos los buffers a la izquierda" }
@@ -124,7 +127,8 @@ return {
       { function() require("astrocore.buffer").close_right() end, desc = "Cerrar todos los buffers a la derecha" }
     maps.n["<Leader>bs"] = vim.tbl_get(sections, "bs")
     maps.n["<Leader>bse"] = { function() require("astrocore.buffer").sort "extension" end, desc = "Por extensión" }
-    maps.n["<Leader>bsr"] = { function() require("astrocore.buffer").sort "unique_path" end, desc = "Por ruta relativa" }
+    maps.n["<Leader>bsr"] =
+      { function() require("astrocore.buffer").sort "unique_path" end, desc = "Por ruta relativa" }
     maps.n["<Leader>bsp"] = { function() require("astrocore.buffer").sort "full_path" end, desc = "Por ruta completa" }
     maps.n["<Leader>bsi"] = { function() require("astrocore.buffer").sort "bufnr" end, desc = "Por número de buffer" }
     maps.n["<Leader>bsm"] = { function() require("astrocore.buffer").sort "modified" end, desc = "Por modificación" }
@@ -192,26 +196,33 @@ return {
 
     maps.n["<Leader>u"] = vim.tbl_get(sections, "u")
     -- Menú personalizado para modificación de la experiencia de usuario
-    maps.n["<Leader>uA"] = { function() require("astrocore.toggles").autochdir() end, desc = "Alternar autochdir de rooter" }
+    maps.n["<Leader>uA"] =
+      { function() require("astrocore.toggles").autochdir() end, desc = "Alternar autochdir de rooter" }
     maps.n["<Leader>ub"] = { function() require("astrocore.toggles").background() end, desc = "Alternar fondo" }
-    maps.n["<Leader>ud"] = { function() require("astrocore.toggles").diagnostics() end, desc = "Alternar diagnósticos" }
+    maps.n["<Leader>ud"] =
+      { function() require("astrocore.toggles").diagnostics() end, desc = "Alternar diagnósticos" }
     maps.n["<Leader>ug"] = { function() require("astrocore.toggles").signcolumn() end, desc = "Alternar signcolumn" }
     maps.n["<Leader>u>"] = { function() require("astrocore.toggles").foldcolumn() end, desc = "Alternar foldcolumn" }
-    maps.n["<Leader>ui"] = { function() require("astrocore.toggles").indent() end, desc = "Cambiar configuración de sangría" }
-    maps.n["<Leader>ul"] = { function() require("astrocore.toggles").statusline() end, desc = "Alternar línea de estado" }
-    maps.n["<Leader>un"] = { function() require("astrocore.toggles").number() end, desc = "Cambiar numeración de líneas" }
+    maps.n["<Leader>ui"] =
+      { function() require("astrocore.toggles").indent() end, desc = "Cambiar configuración de sangría" }
+    maps.n["<Leader>ul"] =
+      { function() require("astrocore.toggles").statusline() end, desc = "Alternar línea de estado" }
+    maps.n["<Leader>un"] =
+      { function() require("astrocore.toggles").number() end, desc = "Cambiar numeración de líneas" }
     maps.n["<Leader>uN"] =
       { function() require("astrocore.toggles").notifications() end, desc = "Alternar Notificaciones" }
     maps.n["<Leader>up"] = { function() require("astrocore.toggles").paste() end, desc = "Alternar modo de pegado" }
-    maps.n["<Leader>us"] = { function() require("astrocore.toggles").spell() end, desc = "Alternar revisión ortográfica" }
+    maps.n["<Leader>us"] =
+      { function() require("astrocore.toggles").spell() end, desc = "Alternar revisión ortográfica" }
     maps.n["<Leader>uS"] = { function() require("astrocore.toggles").conceal() end, desc = "Alternar ocultar" }
     maps.n["<Leader>ut"] = { function() require("astrocore.toggles").tabline() end, desc = "Alternar tabline" }
-    maps.n["<Leader>uu"] = { function() require("astrocore.toggles").url_match() end, desc = "Alternar resaltado de URL" }
+    maps.n["<Leader>uu"] =
+      { function() require("astrocore.toggles").url_match() end, desc = "Alternar resaltado de URL" }
     maps.n["<Leader>uw"] = { function() require("astrocore.toggles").wrap() end, desc = "Alternar ajuste de línea" }
     -- `ga` para formatear está en `_astrolsp_mappings.lua` (usa astrolsp.format_opts + clientes con formatting)
     maps.n["<Leader>uy"] =
-
-      { function() require("astrocore.toggles").buffer_syntax() end, desc = "Alternar resaltado de sintaxis" }
+      
+{ function() require("astrocore.toggles").buffer_syntax() end, desc = "Alternar resaltado de sintaxis" }
 
     -- No sustituir opts.mappings entero: AstroNvim (p. ej. toggleterm) ya añadió <Leader>t, tf, th, tv…
     local base = opts.mappings or astro.empty_map_table()

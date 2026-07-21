@@ -43,5 +43,11 @@ return {
       }
     end
     opts.config = require("astrocore").extend_tbl(opts.config or {}, extra)
+
+    -- Timeout más alto: Black en archivos grandes puede superar 1s por defecto
+    opts.formatting = require("astrocore").extend_tbl(opts.formatting or {}, {
+      timeout_ms = 10000,
+      disabled = { "lua_ls" }, -- stylua/none-ls formatea Lua; evita pelea con lua_ls
+    })
   end,
 }

@@ -11,6 +11,14 @@ if not (vim.env.LAZY or (vim.uv or vim.loop).fs_stat(lazypath)) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+-- uv tool install (black, ruff, …) vive en ~/.local/bin; GUIs a veces no lo tienen en PATH
+do
+  local local_bin = vim.fn.expand "~/.local/bin"
+  if not vim.env.PATH:find(local_bin, 1, true) then
+    vim.env.PATH = local_bin .. ":" .. vim.env.PATH
+  end
+end
+
 -- Si el LSP de ESLint falla en tus proyectos (error -32603 / diagnostic failed), descomenta:
 -- vim.g.disable_eslint_lsp = true
 
