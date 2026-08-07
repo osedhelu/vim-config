@@ -243,8 +243,12 @@ return {
       desc = "Eliminar sesión actual",
     }
     maps.n["<Leader>Sf"] = {
-      function() require("telescope").extensions.sessions.list() end,
-      desc = "Buscar sesiones guardadas",
+      function()
+        -- Abrir el directorio de sesiones en el explorador de archivos
+        local session_dir = vim.fn.stdpath "data" .. "/sessions/"
+        require("astrocore").system_open(session_dir)
+      end,
+      desc = "Abrir directorio de sesiones",
     }
 
     -- No sustituir opts.mappings entero: AstroNvim (p. ej. toggleterm) ya añadió <Leader>t, tf, th, tv…
