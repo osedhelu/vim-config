@@ -84,7 +84,7 @@ Los bloques siguientes reflejan lo que está en `lua/plugins/` (AstroCore person
 | `<Leader>Ss` | Normal | Guardar sesión actual |
 | `<Leader>Sr` | Normal | Restaurar última sesión |
 | `<Leader>Sd` | Normal | Eliminar sesión actual |
-| `<Leader>Sf` | Normal | Buscar sesiones guardadas (Telescope) |
+| `<Leader>Sf` | Normal | Abrir directorio de sesiones en el explorador |
 
 **Notas sobre sesiones:**
 - Las sesiones se guardan automáticamente al cerrar Neovim

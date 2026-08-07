@@ -55,7 +55,7 @@ nvim
 | `<Leader>Ss` | Guardar sesión manualmente | Cuando quieras guardar antes de hacer cambios drásticos |
 | `<Leader>Sr` | Restaurar última sesión | Si cerraste archivos accidentalmente |
 | `<Leader>Sd` | Eliminar sesión actual | Para comenzar "limpio" en un proyecto |
-| `<Leader>Sf` | Buscar sesiones con Telescope | Para cambiar entre sesiones guardadas |
+| `<Leader>Sf           | Abrir directorio de sesiones (explorador) | Para cambiar entre sesiones guardadas |
 
 ## Casos de Uso
 
