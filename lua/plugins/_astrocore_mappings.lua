@@ -213,6 +213,21 @@ return {
 
       { function() require("astrocore.toggles").buffer_syntax() end, desc = "Alternar resaltado de sintaxis" }
 
+    -- Atajos para Markdown
+    maps.n["<Leader>md"] = { desc = "Markdown" }
+    maps.n["<Leader>mdp"] = {
+      function() vim.cmd("MarkdownPreview") end,
+      desc = "Vista previa de Markdown",
+    }
+    maps.n["<Leader>mds"] = {
+      function() vim.cmd("MarkdownPreviewStop") end,
+      desc = "Detener vista previa",
+    }
+    maps.n["<Leader>mdt"] = {
+      function() require("render-markdown").toggle() end,
+      desc = "Alternar renderizado de Markdown",
+    }
+
     -- No sustituir opts.mappings entero: AstroNvim (p. ej. toggleterm) ya añadió <Leader>t, tf, th, tv…
     local base = opts.mappings or astro.empty_map_table()
     for mode, mode_maps in pairs(maps) do

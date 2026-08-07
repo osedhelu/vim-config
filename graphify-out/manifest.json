@@ -1,0 +1,112 @@
+{
+  ".neoconf.json": {
+    "mtime": 1774654954.0071065,
+    "ast_hash": "4e9be0068e31d3b1d9ace5ecb7d67d46",
+    "semantic_hash": "4e9be0068e31d3b1d9ace5ecb7d67d46"
+  },
+  "init.lua": {
+    "mtime": 1774676899.0895708,
+    "ast_hash": "237b60f8cb235b6b6ccfdef6f14094b7",
+    "semantic_hash": "237b60f8cb235b6b6ccfdef6f14094b7"
+  },
+  "lazy-lock.json": {
+    "mtime": 1774655676.1691706,
+    "ast_hash": "0f6fa65afa9ececea4b201b919446bae",
+    "semantic_hash": "0f6fa65afa9ececea4b201b919446bae"
+  },
+  "lua/community.lua": {
+    "mtime": 1774654954.0082228,
+    "ast_hash": "ce671d08d469552caf3fd736792e9f9a",
+    "semantic_hash": "ce671d08d469552caf3fd736792e9f9a"
+  },
+  "lua/config/diagnostic_ui.lua": {
+    "mtime": 1774673607.0381699,
+    "ast_hash": "1f5fba2a21bd3a1b67efa0cb875a2ea0",
+    "semantic_hash": "1f5fba2a21bd3a1b67efa0cb875a2ea0"
+  },
+  "lua/lazy_setup.lua": {
+    "mtime": 1774654954.0083654,
+    "ast_hash": "558851b29773bfa8bbb8b3125270cfed",
+    "semantic_hash": "558851b29773bfa8bbb8b3125270cfed"
+  },
+  "lua/plugins/_astrocore_mappings.lua": {
+    "mtime": 1774677551.7404497,
+    "ast_hash": "ab25ff7cd4373661c652d62d3e7a3962",
+    "semantic_hash": "ab25ff7cd4373661c652d62d3e7a3962"
+  },
+  "lua/plugins/_astrolsp_mappings.lua": {
+    "mtime": 1774676576.2722163,
+    "ast_hash": "97b4c385dd880de8cb038cf042dc94f9",
+    "semantic_hash": "97b4c385dd880de8cb038cf042dc94f9"
+  },
+  "lua/plugins/astrocore.lua": {
+    "mtime": 1774673609.0677636,
+    "ast_hash": "042c8cc746316e41310ba2a0633ae0cd",
+    "semantic_hash": "042c8cc746316e41310ba2a0633ae0cd"
+  },
+  "lua/plugins/astrolsp.lua": {
+    "mtime": 1774676889.029342,
+    "ast_hash": "726ce949e5f42eaf59cb0c81e58032c4",
+    "semantic_hash": "726ce949e5f42eaf59cb0c81e58032c4"
+  },
+  "lua/plugins/astroui.lua": {
+    "mtime": 1774654954.0095465,
+    "ast_hash": "a4d6aea8334c974b7f5ed1aeb080d842",
+    "semantic_hash": "a4d6aea8334c974b7f5ed1aeb080d842"
+  },
+  "lua/plugins/flutter-tools.lua": {
+    "mtime": 1774654954.0098207,
+    "ast_hash": "6fea18d7bf7c68954f5db4e08d7fe093",
+    "semantic_hash": "6fea18d7bf7c68954f5db4e08d7fe093"
+  },
+  "lua/plugins/mason-null-ls.lua": {
+    "mtime": 1774673852.561675,
+    "ast_hash": "d26a30b7ea4d3b5336c90e26a98dbb02",
+    "semantic_hash": "d26a30b7ea4d3b5336c90e26a98dbb02"
+  },
+  "lua/plugins/mason.lua": {
+    "mtime": 1774673049.8458483,
+    "ast_hash": "5627b2ce094e87fda4913e0f03d9c86c",
+    "semantic_hash": "5627b2ce094e87fda4913e0f03d9c86c"
+  },
+  "lua/plugins/neo-tree.lua": {
+    "mtime": 1774654954.0103045,
+    "ast_hash": "cb534be3992b4e5e5e8850587bb68cf0",
+    "semantic_hash": "cb534be3992b4e5e5e8850587bb68cf0"
+  },
+  "lua/plugins/none-ls.lua": {
+    "mtime": 1774673854.0540078,
+    "ast_hash": "a17b102a168905bf3b17ab1cc4d7323c",
+    "semantic_hash": "a17b102a168905bf3b17ab1cc4d7323c"
+  },
+  "lua/plugins/treesitter.lua": {
+    "mtime": 1774655676.5853336,
+    "ast_hash": "248602a41f68ab6815056bb713130a26",
+    "semantic_hash": "248602a41f68ab6815056bb713130a26"
+  },
+  "lua/plugins/user.lua": {
+    "mtime": 1774673050.78351,
+    "ast_hash": "4d81f7df594a0e534f9a5eeed328f27d",
+    "semantic_hash": "4d81f7df594a0e534f9a5eeed328f27d"
+  },
+  "lua/plugins/vim-easymotion.lua": {
+    "mtime": 1774673609.6907346,
+    "ast_hash": "495c4a292c866d780192707e26de443b",
+    "semantic_hash": "495c4a292c866d780192707e26de443b"
+  },
+  "lua/plugins/which-key.lua": {
+    "mtime": 1774673294.262405,
+    "ast_hash": "f1183d27d7944d453d53bedcc648e96a",
+    "semantic_hash": "f1183d27d7944d453d53bedcc648e96a"
+  },
+  "lua/polish.lua": {
+    "mtime": 1774654954.0111313,
+    "ast_hash": "12ecce00f72395b99725f1ca04f7ad60",
+    "semantic_hash": "12ecce00f72395b99725f1ca04f7ad60"
+  },
+  "scripts/nvim-doctor.sh": {
+    "mtime": 1774655310.0396323,
+    "ast_hash": "cf6991d18c54c576e1faa969b4af821c",
+    "semantic_hash": "cf6991d18c54c576e1faa969b4af821c"
+  }
+}

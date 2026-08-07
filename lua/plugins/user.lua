@@ -81,4 +81,87 @@ return {
       )
     end,
   },
+
+  -- == Markdown Rendering ==
+  {
+    "MeanderingProgrammer/markdown.nvim",
+    name = "render-markdown",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function()
+      require("render-markdown").setup({
+        file_types = { "markdown", "md" },
+        heading = {
+          sign = false,
+          icons = { "󰲡 ", "󰲢 ", "󰲣 ", "󰲤 ", "󰲥 ", "󰲦 " },
+        },
+        code = {
+          sign = true,
+          style = "full",
+          left_pad = 1,
+          right_pad = 1,
+          border = "thin",
+          above = "▄",
+          below = "▀",
+        },
+        dash = {
+          icon = "─",
+          width = "full",
+          highlight = "LineNr",
+        },
+        bullet = {
+          icons = { "●", "○", "◆", "◇" },
+        },
+        checkbox = {
+          unchecked = {
+            icon = "󰄱 ",
+            highlight = "RenderMarkdownUnchecked",
+          },
+          checked = {
+            icon = "󰄲 ",
+            highlight = "RenderMarkdownChecked",
+          },
+        },
+        quote = {
+          icon = "▋",
+          repeat_linebreak = true,
+        },
+        link = {
+          enabled = true,
+          hyperlink = {
+            icon = "󰌷 ",
+          },
+        },
+        image = {
+          enabled = true,
+        },
+        table = {
+          enabled = true,
+        },
+        latex = {
+          enabled = true,
+        },
+      })
+    end,
+  },
+
+  -- == Markdown Preview ==
+  {
+    "iamcco/markdown-preview.nvim",
+    build = "cd app && npm install",
+    ft = { "markdown", "md" },
+    config = function()
+      vim.g.mkdp_auto_start = 0
+      vim.g.mkdp_auto_close = 0
+      vim.g.mkdp_refresh_slow = 0
+      vim.g.mkdp_command_for_global = 0
+      vim.g.mkdp_open_to_the_world = 0
+      vim.g.mkdp_open_ip = ""
+      vim.g.mkdp_port = ""
+      vim.g.mkdp_browser = ""
+      vim.g.mkdp_echo_preview_url = 1
+      vim.g.mkdp_page_title = "「${name}」"
+      vim.g.mkdp_theme = "dark"
+      vim.g.mkdp_filetypes = { "markdown", "md" }
+    end,
+  },
 }
