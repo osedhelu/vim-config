@@ -1,0 +1,192 @@
+# ========================================
+# Neovim Configuration Repository
+# .gitignore - Excluye archivos no necesarios
+# ========================================
+
+# === Archivos del Sistema Operativo ===
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+*.swp
+*.swo
+*~
+._.DS_Store
+
+# Linux
+.Trash-*
+.directory
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ========================================
+# === Logs y Temporales de Neovim ===
+# ========================================
+.nvimlog
+nvim.log
+*.log
+lsp.log
+
+# Swap files
+.swp
+.swo
+*~
+*.tmp
+
+# Backup files
+*.bak
+*.backup
+
+# ========================================
+# === Archivos Dinámicos/Generados ===
+# ========================================
+# Directorios de cache de Neovim
+.cache/
+cache/
+*.cache
+
+# Directorios temporales
+.tmp/
+tmp/
+temp/
+
+# Archivos generados por plugins
+undodir/
+backupdir/
+spelldir/
+
+# ========================================
+# === Dependencias y Paquetes ===
+# ========================================
+# Node.js
+node_modules/
+package-lock.json
+npm-debug.log*
+yarn-error.log*
+pnpm-lock.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ========================================
+# === Mason y Language Servers ===
+# ========================================
+# Mason installed tools y binarios
+# (típicamente en ~/.local/share/nvim/mason, NO en este repo)
+# Si usas local install, excluir:
+mason_packages/
+
+# ========================================
+# === Lazy.nvim (Plugin Manager) ===
+# ========================================
+# Lock file está INCLUIDO (lazy-lock.json es necesario)
+# Pero excluye directorios de plugins si están aquí:
+# (típicamente plugins se clonan en ~/.local/share/nvim/lazy)
+lazy_packages/
+plugins_local/
+
+# ========================================
+# === Trabajo en Progreso / Experimental ===
+# ========================================
+# Archivos temporales de desarrollo
+scratch/
+experimental/
+WIP/
+.wip/
+
+# ========================================
+# === IDE y Editores ===
+# ========================================
+.vscode/
+.idea/
+*.iml
+*.sublime-workspace
+*.sublime-project
+.vim/
+.nvim/
+
+# ========================================
+# === Archivos de Configuración Local ===
+# ========================================
+# Si deseas una configuración local NO versionada:
+local.lua
+local.vim
+*.local.lua
+*.local.json
+
+# ========================================
+# === Salida de Graphify (Opcional) ===
+# ========================================
+# Si graphify-out/ es generado y NO necesario en el repo
+# Descomenta la siguiente línea:
+# graphify-out/
+
+# ========================================
+# === Salida de Pruebas ===
+# ========================================
+coverage/
+.coverage
+test-results/
+junit.xml
+
+# ========================================
+# === Archivos de Sesión ===
+# ========================================
+# Session files (si usas vim-session o similar)
+Session.vim
+session/
+sessions/
+
+# ========================================
+# === Archivos Compilados ===
+# ========================================
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+# ========================================
+# === Docker y Contenedores ===
+# ========================================
+.dockerignore
+docker-compose.override.yml
+
+# ========================================
+# === Archivos de Desarrollo Específicos ===
+# ========================================
+.env
+.env.local
+.env.*.local
+secrets/
+.secrets/
+
+# ========================================
+# === Otros ===
+# ========================================
+.ignore
