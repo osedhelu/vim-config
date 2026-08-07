@@ -228,6 +228,25 @@ return {
       desc = "Alternar renderizado de Markdown",
     }
 
+    -- Gestión de Sesiones (auto-session)
+    maps.n["<Leader>S"] = vim.tbl_get(sections, "S")
+    maps.n["<Leader>Ss"] = {
+      function() require("auto-session").save_session() end,
+      desc = "Guardar sesión actual",
+    }
+    maps.n["<Leader>Sr"] = {
+      function() require("auto-session").restore_session() end,
+      desc = "Restaurar última sesión",
+    }
+    maps.n["<Leader>Sd"] = {
+      function() require("auto-session").delete_session() end,
+      desc = "Eliminar sesión actual",
+    }
+    maps.n["<Leader>Sf"] = {
+      function() require("telescope").extensions.sessions.list() end,
+      desc = "Buscar sesiones guardadas",
+    }
+
     -- No sustituir opts.mappings entero: AstroNvim (p. ej. toggleterm) ya añadió <Leader>t, tf, th, tv…
     local base = opts.mappings or astro.empty_map_table()
     for mode, mode_maps in pairs(maps) do
