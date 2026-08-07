@@ -2,9 +2,6 @@ return {
   "rmagatti/auto-session",
   lazy = false,
   priority = 1000, -- Cargar con alta prioridad para asegurar restauración temprana
-  dependencies = {
-    "nvim-telescope/telescope.nvim",
-  },
   ---@type AutoSession.Config
   opts = {
     -- Directorio donde se guardan las sesiones
@@ -58,38 +55,8 @@ return {
       pre_cwd_changed_hook = function() end,
       post_cwd_changed_hook = function() end,
     },
-
-    -- Función personalizada para determinar el nombre de sesión
-    session_lens = {
-      -- Mostrar sesiones en Telescope cuando se usa <Leader>Sf
-      previewer = false,
-    },
   },
   config = function(_, opts)
     require("auto-session").setup(opts)
-
-    -- Integración con Telescope para ver/cambiar sesiones
-    if pcall(require, "telescope") then
-      require("telescope").load_extension "sessions"
-    end
-
-    -- Debug: Mostrar información sobre la sesión al iniciar
-    vim.schedule(function()
-      local session_lib = require "auto-session.session-lens.session"
-      local cwd = vim.fn.getcwd()
-      local session_name = session_lib.format_session_name(cwd)
-      vim.api.nvim_create_autocmd("VimEnter", {
-        once = true,
-        callback = function()
-          if vim.fn.argc() == 0 then
-            -- Mostrar sesión restaurada (solo en VimEnter)
-            vim.notify(
-              "Auto-session: Working dir: " .. cwd .. " | Session: " .. session_name,
-              vim.log.levels.DEBUG
-            )
-          end
-        end,
-      })
-    end)
   end,
 }
