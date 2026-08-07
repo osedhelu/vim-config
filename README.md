@@ -76,6 +76,23 @@ Los bloques siguientes reflejan lo que está en `lua/plugins/` (AstroCore person
 | `<Leader>LU` | Normal | Actualizar plugins |
 | `<Leader>La` | Normal | Actualizar Lazy y Mason |
 
+### Sesiones (auto-session)
+
+| Atajo | Modo | Acción |
+|-------|------|--------|
+| `<Leader>S` | Normal | Prefijo del menú Sesiones |
+| `<Leader>Ss` | Normal | Guardar sesión actual |
+| `<Leader>Sr` | Normal | Restaurar última sesión |
+| `<Leader>Sd` | Normal | Eliminar sesión actual |
+| `<Leader>Sf` | Normal | Buscar sesiones guardadas (Telescope) |
+
+**Notas sobre sesiones:**
+- Las sesiones se guardan automáticamente al cerrar Neovim
+- Se restauran automáticamente al abrir Neovim en el mismo directorio
+- El nombre de la sesión se basa en la rama de Git actual (si disponible)
+- Las sesiones se almacenan en `~/.local/share/nvim/sessions/`
+- Las sesiones no se guardan en directorios temporales (`/tmp`, `~/Downloads`, etc.)
+
 ### Diagnósticos LSP
 
 | Atajo | Modo | Acción |
