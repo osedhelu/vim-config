@@ -63,14 +63,11 @@ return {
       { source = "buffers", display_name = get_icon("DefaultFile", 1, true) .. "Bufs" },
       { source = "diagnostics", display_name = get_icon("Diagnostic", 1, true) .. "Diagnostic" },
     }
-    if git_available then
-      table.insert(sources, 3, { source = "git_status", display_name = get_icon("Git", 1, true) .. "Git" })
-    end
     local opts = {
       enable_git_status = git_available,
       auto_clean_after_session_restore = true,
       close_if_last_window = true,
-      sources = { "filesystem", "buffers", git_available and "git_status" or nil },
+      sources = { "filesystem", "buffers" },
       source_selector = {
         winbar = true,
         content_layout = "center",

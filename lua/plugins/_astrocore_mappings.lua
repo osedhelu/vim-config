@@ -7,7 +7,6 @@ return {
     -- Inicializa las secciones de mapeo internamente usando títulos
     opts._map_sections = {
       f = { desc = get_icon("Search", 1, true) .. "Buscar" },
-      -- `p` ya no es grupo: `<Leader>p` abre Telescope archivos del proyecto. Lazy va en `<Leader>L`.
       L = { desc = get_icon("Package", 1, true) .. "Plugins (Lazy)" },
       l = { desc = get_icon("ActiveLSP", 1, true) .. "Herramientas de Lenguaje" },
       u = { desc = get_icon("Window", 1, true) .. "UI/UX" },
@@ -55,6 +54,25 @@ return {
     end
     maps.n["<Leader>/"] = { "gcc", remap = true, desc = "Alternar comentario de línea" }
     maps.x["<Leader>/"] = { "gc", remap = true, desc = "Alternar comentario" }
+
+    -- Grupos WhichKey (padres)
+    maps.n["<Leader>f"] = vim.tbl_get(sections, "f")
+    maps.n["<Leader>d"] = vim.tbl_get(sections, "d")
+    maps.n["<Leader>t"] = vim.tbl_get(sections, "t")
+
+    -- Git (Gitsigns + lazygit)
+    maps.n["<Leader>g"] = vim.tbl_get(sections, "g")
+    -- LazyGit bindings are defined in lua/plugins/lazygit.lua
+    -- Gitsigns: staging, reset, preview, blame
+    maps.n["<Leader>gs"] = { function() require("gitsigns").stage_hunk() end, desc = "Stage hunk" }
+    maps.v["<Leader>gs"] = function() require("gitsigns").stage_hunk { vim.fn.line ".", vim.fn.line "v" } end
+    maps.n["<Leader>gr"] = { function() require("gitsigns").reset_hunk() end, desc = "Reset hunk" }
+    maps.v["<Leader>gr"] = function() require("gitsigns").reset_hunk { vim.fn.line ".", vim.fn.line "v" } end
+    maps.n["<Leader>gS"] = { function() require("gitsigns").stage_buffer() end, desc = "Stage buffer" }
+    maps.n["<Leader>gR"] = { function() require("gitsigns").reset_buffer() end, desc = "Reset buffer" }
+    maps.n["<Leader>gP"] = { function() require("gitsigns").preview_hunk() end, desc = "Preview hunk" }
+    maps.n["<Leader>gb"] = { function() require("gitsigns").blame_line() end, desc = "Blame línea" }
+    maps.n["<Leader>gd"] = { function() require("gitsigns").diffthis() end, desc = "Diff this" }
 
     -- Mapeos LSP por defecto de Neovim
     if vim.fn.has "nvim-0.11" ~= 1 then
