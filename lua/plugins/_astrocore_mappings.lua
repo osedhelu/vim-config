@@ -54,8 +54,7 @@ return {
         desc = gx_desc,
       }
     end
-    maps.n["<Leader>/"] = { "gcc", remap = true, desc = "Alternar comentario de línea" }
-    maps.x["<Leader>/"] = { "gc", remap = true, desc = "Alternar comentario" }
+    
 
     -- Mapeos LSP por defecto de Neovim
     if vim.fn.has "nvim-0.11" ~= 1 then
@@ -83,6 +82,44 @@ return {
         }
       end,
       desc = "Buscar archivos en el proyecto",
+    }
+
+    -- Buscar una palabra/texto en todos los archivos del proyecto, excluyendo
+    -- dependencias y carpetas generadas (node_modules, .venv, dist, ...)
+    maps.n["<Leader>ff"] = {
+      function()
+        if not require("astrocore").is_available "telescope.nvim" then
+          require("astrocore").notify("Instala o habilita telescope.nvim", vim.log.levels.WARN)
+          return
+        end
+        local roots = require("astrocore.rooter").detect(0, false)
+        local cwd = (roots[1] and roots[1].paths and roots[1].paths[1]) or vim.fn.getcwd()
+        require("telescope.builtin").live_grep {
+          cwd = cwd,
+          prompt_title = "Buscar texto en el proyecto",
+          additional_args = {
+            "--hidden",
+            "--glob=!**/node_modules/**",
+            "--glob=!**/.venv/**",
+            "--glob=!**/venv/**",
+            "--glob=!**/env/**",
+            "--glob=!**/__pycache__/**",
+            "--glob=!**/.git/**",
+            "--glob=!**/.next/**",
+            "--glob=!**/.nuxt/**",
+            "--glob=!**/dist/**",
+            "--glob=!**/build/**",
+            "--glob=!**/target/**",
+            "--glob=!**/vendor/**",
+            "--glob=!**/.cache/**",
+            "--glob=!**/.pytest_cache/**",
+            "--glob=!**/.mypy_cache/**",
+            "--glob=!**/coverage/**",
+            "--glob=!**/venv/**",
+          },
+        }
+      end,
+      desc = "Buscar texto en el proyecto",
     }
 
     -- Gestor de Plugins (antes todo bajo `<Leader>p`; ahora `L` = Lazy para no chocar con `p`)
