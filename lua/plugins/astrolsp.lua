@@ -4,6 +4,13 @@ return {
   -- does not play nicely with list-like tables
   ---@param opts AstroLSPOpts
   opts = function(plugin, opts)
+    -- Formatear solo manualmente con `ga`; desactivar el autoformateo al guardar
+    -- y dejar únicamente el formateo por LSP real (lua_ls + vtsls).
+    -- "null-ls" desactiva stylua/black (none-ls); "eslint" evita el doble formateo en TS/JS.
+    opts.formatting = opts.formatting or {}
+    opts.formatting.format_on_save = { enabled = false }
+    opts.formatting.disabled = { "null-ls", "eslint" }
+
     -- safely extend the servers list
     opts.servers = opts.servers or {}
     vim.list_extend(opts.servers, {

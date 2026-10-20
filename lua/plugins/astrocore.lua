@@ -24,11 +24,13 @@ return {
         wrap = false, -- sets vim.opt.wrap
         -- Evita "Press ENTER or type command to continue" con mensajes largos (LSP, plugins)
         cmdheight = 2,
+        clipboard = "unnamedplus", -- y va al registro +
       },
       g = { -- vim.g.<key>
         -- configure global vim variables (vim.g)
         -- NOTE: `mapleader` and `maplocalleader` must be set in the AstroNvim opts or before `lazy.setup`
         -- This can be found in the `lua/lazy_setup.lua` file
+        clipboard = "osc52", -- usa OSC 52 para clipboard por SSH
       },
     },
     -- Mappings can be configured through AstroCore as well.

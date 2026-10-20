@@ -20,6 +20,11 @@ return {
       "html",
       "css",
       "scss",
+      -- Kotlin / Spring Boot
+      "kotlin",
+      "java",
+      "groovy", -- build.gradle (Groovy)
+      "properties", -- application.properties
     },
     highlight = {
       enable = true,

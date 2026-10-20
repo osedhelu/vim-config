@@ -18,6 +18,7 @@ lua/
     astroui.lua          # UI/theme tweaks
     {mason,none-ls,treesitter}.lua  # Language tooling
     {neo-tree,which-key,flutter-tools,vim-easymotion}.lua  # Plugins
+    {kotlin,java-spring-boot}.lua  # Kotlin + Spring Boot (LSP, ktlint, jdtls, DAP)
     _astrocore_mappings.lua, _astrolsp_mappings.lua  # Extra keybinds
 lua/plugins/
   user.lua               # Custom user plugins (if any)
@@ -33,6 +34,7 @@ README.md                # User-facing docs (Spanish); keybinds, setup
 ## Key Points for Agents
 
 ### 1. Entry Flow
+
 - `nvim` starts → `init.lua` → bootstrap lazy.nvim
 - Lazy loads `lazy_setup.lua` → imports AstroNvim v4, community packs, plugins from `lua/plugins/`
 - AstroNvim provides base keybinds, LSP config, UI framework
@@ -40,18 +42,21 @@ README.md                # User-facing docs (Spanish); keybinds, setup
 - Diagnostics fed through `config/diagnostic_ui.lua` to avoid flooding the buffer
 
 ### 2. Configuration Language
+
 - **Lua only.** No VIML scripts in this repo.
 - Formatter: **stylua** (120 cols, 2-space indents, auto-prefer double quotes)
 - Linter: **selene** (catches common Lua mistakes)
 - Code style in plugins follows AstroNvim conventions: LazySpec annotations, opts tables
 
 ### 3. Lazy.nvim & Plugin Loading
+
 - All plugins declared in `lua/plugins/*.lua`
 - Each file returns `LazySpec` table (annotated with `---@type LazySpec`)
 - Lazy-loads plugins via `import "plugins"` in `lazy_setup.lua`
 - **Note:** AstroNvim v4 pins plugins by default (unless `pin_plugins = nil`). Version tracking is on.
 
 ### 4. LSP & Diagnostics
+
 - **LSP server install:** Use `:Mason` inside nvim (installs via mason-lspconfig)
 - **Common servers:** `lua_ls`, `vtsls` (TypeScript/JavaScript), `pyright`, `jsonls`
 - **ESLint as LSP:** Enabled via `astrocommunity.pack.typescript`. If it fails with error `-32603`:
@@ -61,17 +66,21 @@ README.md                # User-facing docs (Spanish); keybinds, setup
 - **Diagnostic display:** Tuned in `lua/config/diagnostic_ui.lua` to avoid virtual text flood (Pyright issues)
 
 ### 5. Community Packs
+
 From `lua/community.lua`:
+
 - `astrocommunity.pack.lua` — Lua language support (syntax, lsp config)
 - `astrocommunity.pack.typescript` — TypeScript/JS (includes vtsls, eslint, prettier)
 - `astrocommunity.recipes.telescope-nvchad-theme` — Telescope theme
 
 ### 6. Flutter Support
+
 - `flutter-tools.nvim` is included (`lua/plugins/flutter-tools.lua`)
 - Requires Flutter SDK in system PATH (`flutter --version` must work)
 - Install via Homebrew (macOS) or Flutter official docs
 
 ### 7. Tree-sitter Compilation
+
 - **Required:** C compiler (build-essential on Linux, Xcode CLT on macOS)
 - **Troubleshooting:**
   ```bash
@@ -82,6 +91,7 @@ From `lua/community.lua`:
 - Or inside nvim: `:TSUpdateSync all`
 
 ### 8. Keybinds Architecture
+
 - **Leader key:** Space (configured in `lazy_setup.lua`)
 - **Local leader:** `,` (complementary binds)
 - Base keybinds from AstroNvim core + community packs
@@ -90,12 +100,14 @@ From `lua/community.lua`:
 - Keybind tables in `lua/plugins/astrocore.lua` use AstroCore mapping DSL (`desc`, `function`, modes)
 
 ### 9. Code Formatting & Linting
+
 - **Lua:** stylua (see `.stylua.toml`)
 - **JS/TS:** prettier (from typescript pack, via none-ls)
 - **General:** none-ls.nvim integrates external tools as LSP client
 - Format command: `ga` (normal) or `<Leader>ga` (visual) — triggers LSP format
 
 ### 10. First-Run Setup
+
 1. Clone repo to `~/.config/nvim`
 2. `nvim` → Lazy installs plugins (may take time, requires network)
 3. `:Mason` → Install language servers you need
@@ -104,35 +116,49 @@ From `lua/community.lua`:
 6. Run `./scripts/nvim-doctor.sh check` for system dependency validation
 
 ### 11. Configuration Editing Workflow
+
 - Add new plugins: create `lua/plugins/my-plugin.lua` (return LazySpec), Lazy auto-loads
 - Modify options: edit `lua/plugins/astrocore.lua` (opts table) or create new plugin file
 - Test changes: `:Lazy sync` then `:e init.lua` (forces reload)
 - If plugins fail to load: `:checkhealth` + `./scripts/nvim-doctor.sh check`
 
 ### 12. Disabled Features
+
 - `polish.lua` is disabled (line 1: `if true then return end`). Remove this guard to enable custom filetype setup.
 - Default disabled plugins in Lazy config (gzip, netrw, tarPlugin, tohtml, zipPlugin) — adjust in `lazy_setup.lua` if needed
 
 ### 13. Diagnostic Mode & Performance
+
 - **Diagnostic mode:** 3 (on, full UI) by default in `astrocore.lua`
   - 0 = off, 1 = no signs/virtual text, 2 = no virtual text
   - Pyright can be verbose; see `config/diagnostic_ui.lua` for filtering
 - **Large file handling:** Files >256MB or >10,000 lines disable Tree-sitter, completion, etc.
 - **Neovim version:** AstroNvim v4 requires 0.9.4+; recommend 0.10+ for best experience
 
+### 14. Kotlin & Spring Boot
+
+- Files: `lua/plugins/kotlin.lua` (Kotlin LSP, ktlint, Kotlin DAP) and `lua/plugins/java-spring-boot.lua` (jdtls, Java DAP, Spring Boot extension, Gradle/Maven run).
+- Requires **JDK 17+** in PATH (Kotlin LSP depends on it); Gradle/Maven wrappers are optional.
+- Servers/packages are pulled by **Mason** via `ensure_installed`; `npx`/tree-sitter CLI are not needed (parsers compile with `cc`).
+- `jdtls` is intentionally **not** enabled by mason-lspconfig (its handler is overridden) because `nvim-jdtls` starts it with the Java debug/test/Spring Boot extension bundles.
+- `vscode-spring-boot-tools` is not a lspconfig server, so it is installed from `mason-registry` on `VeryLazy`.
+- Kotlin formatting uses **ktlint via none-ls**; because the global `ga` excludes none-ls (`formatting.disabled`), Kotlin buffers get a buffer-local `ga` override.
+- Keybinds live under `<Leader>k` (see `README.md` > "Kotlin y Spring Boot").
+
 ## Common Commands for Agents
 
-| Task | Command |
-|------|---------|
-| Health check | `./scripts/nvim-doctor.sh check` or `:checkhealth` in nvim |
+| Task                 | Command                                                            |
+| -------------------- | ------------------------------------------------------------------ |
+| Health check         | `./scripts/nvim-doctor.sh check` or `:checkhealth` in nvim         |
 | Diagnose Tree-sitter | `./scripts/nvim-doctor.sh fix-treesitter` then `:TSUpdateSync all` |
-| View keybinds | `:WhichKey` or press Space + wait |
-| Install LSP | `:Mason` (search + i to install) |
-| Sync plugins | `:Lazy sync` |
-| Format code | `ga` (normal) or `<Leader>ga` (visual) |
-| Lint/format Lua | stylua + selene (integrated via none-ls or Mason) |
+| View keybinds        | `:WhichKey` or press Space + wait                                  |
+| Install LSP          | `:Mason` (search + i to install)                                   |
+| Sync plugins         | `:Lazy sync`                                                       |
+| Format code          | `ga` (normal) or `<Leader>ga` (visual)                             |
+| Lint/format Lua      | stylua + selene (integrated via none-ls or Mason)                  |
 
 ## External Dependencies
+
 - **Neovim:** 0.9.4+ (tested on 0.10+)
 - **Git:** Required (Lazy clones plugins)
 - **C compiler + make:** Required for Tree-sitter & fzf-native
@@ -143,7 +169,9 @@ From `lua/community.lua`:
 See README.md **Requisitos del sistema** for full install steps (macOS / Linux).
 
 ## Spanish Docs
+
 README.md is in Spanish and covers:
+
 - Keybind tables (all modes & actions)
 - Neo-tree navigation
 - EasyMotion usage
