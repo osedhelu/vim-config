@@ -40,6 +40,12 @@ local function ancestor_process_named(name)
 end
 
 function M.setup()
+  -- This shim targets Omarchy/Linux (Wayland, /proc, tmux). On macOS and
+  -- Windows, leave Neovim's native provider (pbcopy/pbpaste, win32yank) alone.
+  if vim.fn.has("mac") == 1 or vim.fn.has("win32") == 1 then
+    return
+  end
+
   local in_tmux = vim.env.TMUX ~= nil
   local in_ssh = vim.env.SSH_TTY ~= nil or vim.env.SSH_CONNECTION ~= nil
   local in_herdr = vim.env.HERDR_PANE_ID ~= nil or ancestor_process_named("herdr")
