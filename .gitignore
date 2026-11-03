@@ -1,8 +1,22 @@
+# LazyVim / Neovim
 tt.*
 .tests
 doc/tags
 debug
 .repro
 foo.*
-*.log
 data
+*.log
+
+# Backups y temporales
+*.bak
+*.bak.*
+*~
+*.swp
+*.swo
+.*.sw?
+*.tmp
+
+# Entorno local
+.neoconf.json.local
+lazy-lock.json.local
