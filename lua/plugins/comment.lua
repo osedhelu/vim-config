@@ -1,6 +1,9 @@
 return {
   "numToStr/Comment.nvim",
   opts = function(_, opts)
+    -- Desactivar los atajos por defecto (gcc, gbc, gc...) y usar solo <leader>/
+    opts.mappings = { basic = false, extra = false }
+
     -- ts_context_commentstring lanza un error en archivos sin parser de treesitter
     -- (p. ej. .env), en vez de devolver fallback al commentstring nativo.
     -- Envolvemos el pre_hook para degradar con gracia: si falla (o no decide),
