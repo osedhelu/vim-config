@@ -17,7 +17,7 @@
   },
   "aether": {
     "branch": "v3",
-    "commit": "567efb778534e11ee1072d4fe27178f705a27d8a"
+    "commit": "7b64e5dceb6129470e7cf6fe0680b269eeab8c4c"
   },
   "ashen.nvim": {
     "branch": "main",
@@ -109,7 +109,7 @@
   },
   "mason-lspconfig.nvim": {
     "branch": "main",
-    "commit": "3a5cd6d562a01f6829a35ae761dc383264ea452b"
+    "commit": "55eceab8975036ac43a4176cbfe0d4bf1ddae93f"
   },
   "mason.nvim": {
     "branch": "main",
@@ -161,11 +161,11 @@
   },
   "nvim-lspconfig": {
     "branch": "master",
-    "commit": "d5c7e7bcc15bccc01bf1601a03473e10de2f0f7e"
+    "commit": "993d048db0d83d8e8ba3f9cb376456321acdcce3"
   },
   "nvim-treesitter": {
     "branch": "main",
-    "commit": "915f2bd3d4e2a33704bfc476b5137e9befa82f3d"
+    "commit": "19bdfc04f40ed2ccb3340591d125f759b0406875"
   },
   "nvim-treesitter-textobjects": {
     "branch": "main",
