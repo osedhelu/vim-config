@@ -24,7 +24,7 @@ return {
 				unchecked = { icon = "󰄱 " },
 				checked = { icon = "󰱒 " },
 			},
-			table = {
+			pipe_table = {
 				enabled = true,
 			},
 			link = {
